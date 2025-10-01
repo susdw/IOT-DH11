@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background: #1a1625;
+    color: #e0d7ff; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #b388ff;
+    text-shadow: 0 0 10px rgba(179, 136, 255, 0.6);
+    margin-bottom: 0.5rem;
+}
+
+header h2 {
+    font-size: 1.3rem;
+    color: #e0d7ff;
+    font-weight: 400;
+}
+
+.grafico-container {
+    width: 100%;
+    max-width: 800px;
+    background: #241b33;
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease;
+}
+
+.grafico-container:hover {
+    transform: translateY(-4px);
+}
+
+#grafico {
+    width: 100% !important;
+    height: 400px !important;
+    display: block;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1625;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #5e35b1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7e57c2;
+}
