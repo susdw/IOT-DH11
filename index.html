@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard IoT</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard IoT</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mqtt/dist/mqtt.min.js"></script>
 </head>
+
 <body>
-    <main>
-        <header>
-            <h1>Dashboard IoT</h1>
-            <h2>Monitoramento DHT11</h2>
-        </header>
+  <aside class="sidebar">
+    <h1>IoT Dashboard</h1>
+    <nav>
+      <button data-page="dht">DHT11 — Temperatura</button>
+      <button data-page="ldr">LDR — Luminosidade</button>
+    </nav>
+  </aside>
 
-        <section class="grafico-container">
-            <canvas id="grafico" width="400" height="200"></canvas>
-        </section>
-    </main>
+  <main id="main-content">
+    <h2>Bem-vindo</h2>
+    <p>Selecione uma análise no menu lateral para começar.</p>
+  </main>
 
-    <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
