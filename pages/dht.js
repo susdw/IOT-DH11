@@ -58,7 +58,7 @@ export function render(container, client) {
       responsive: true,
       animation: {
         duration: 1500,
-        easing: 'easeInOutCubic'
+        //easing: 'easeInOutCubic'
       },
       plugins: {
         legend: {
