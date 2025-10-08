@@ -20,11 +20,35 @@ export function render(container, client) {
     data: {
       labels,
       datasets: [
-        { label: "Temperatura (°C)", data: dataTemp, borderColor: "#ff4081", backgroundColor: "rgba(255,64,129,0.2)", tension: 0.4, fill: true },
-        { label: "Umidade (%)", data: dataHum, borderColor: "#7c4dff", backgroundColor: "rgba(124,77,255,0.2)", tension: 0.4, fill: true }
+        { 
+          label: "Temperatura (°C)",
+          data: dataTemp,
+          borderColor: "#ff4081",
+          backgroundColor: "rgba(255,64,129,0.2)",
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: "Umidade (%)",
+          data: dataHum,
+          borderColor: "#7c4dff",
+          backgroundColor: "rgba(124,77,255,0.2)",
+          tension: 0.4,
+          fill: true
+        }
       ]
     },
-    options: { responsive: true, scales: { x: { ticks: { color: "#cbb2ff" } }, y: { ticks: { color: "#cbb2ff" } } } }
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          ticks: { color: "#cbb2ff" }
+        },
+        y: {
+          ticks: { color: "#cbb2ff" }
+        }
+      }
+    }
   });
 
   client.subscribe("senai/iot/dh11");
