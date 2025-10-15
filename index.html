@@ -7,20 +7,26 @@
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mqtt/dist/mqtt.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-
 <body>
   <aside class="sidebar">
     <h1>IoT Dashboard</h1>
     <nav>
-      <button data-page="dht">DHT11 — Temperatura</button>
-      <button data-page="ldr">LDR — Luminosidade</button>
+      <button data-page="temperature" class="nav-button active">
+        <i class="bi bi-thermometer-half"></i> Temperatura
+      </button>
+      <button data-page="umidade" class="nav-button">
+        <i class="bi bi-droplet"></i> Umidade
+      </button>
     </nav>
   </aside>
 
   <main id="main-content">
-    <h2>Bem-vindo</h2>
-    <p>Selecione uma análise no menu lateral para começar.</p>
+    <div class="welcome-container">
+      <h2>Bem-vindo</h2>
+      <p>Selecione uma análise no menu lateral para começar.</p>
+    </div>
   </main>
 
   <script src="script.js"></script>

@@ -1,11 +1,7 @@
 export function render(container, client) {
   container.innerHTML = `
-    <h2 class="title">DHT11 — Temperatura e Umidade</h2>
+    <h2 class="title">DHT11 — Umidade</h2>
     <div class="cards">
-      <div class="card">
-        <h3>Temperatura</h3>
-        <p id="tempValue" class="value">-- °C</p>
-      </div>
       <div class="card">
         <h3>Umidade</h3>
         <p id="humValue" class="value">-- %</p>
@@ -30,17 +26,6 @@ export function render(container, client) {
     data: {
       labels,
       datasets: [
-        { 
-          label: "Temperatura (°C)",
-          data: dataTemp,
-          borderColor: "#ff4081",
-          backgroundColor: "rgba(255,64,129,0.2)",
-          tension: 0.4,
-          fill: true,
-          pointStyle: 'circle',
-          pointRadius: 5,
-          pointHoverRadius: 7
-        },
         {
           label: "Umidade (%)",
           data: dataHum,
@@ -95,6 +80,8 @@ export function render(container, client) {
           }
         },
         y: {
+          suggestedMin: 0,
+          suggestedMax: 100,
           ticks: { 
             color: "#cbb2ff",
             font: {
@@ -119,25 +106,21 @@ export function render(container, client) {
     if (simulate) {
       simulationInterval = setInterval(() => {
         const simulatedData = {
-          temperatura: (Math.random() * 15 + 20).toFixed(1),
           umidade: (Math.random() * 40 + 30).toFixed(1)
         };
 
         const time = new Date().toLocaleTimeString();
 
         labels.push(time);
-        dataTemp.push(simulatedData.temperatura);
         dataHum.push(simulatedData.umidade);
 
         if (labels.length > 20) {
           labels.shift();
-          dataTemp.shift();
           dataHum.shift();
         }
 
         chart.update();
 
-        document.getElementById("tempValue").textContent = `${simulatedData.temperatura} °C`;
         document.getElementById("humValue").textContent = `${simulatedData.umidade} %`;
       }, 2000);
     } else {
@@ -154,7 +137,6 @@ export function render(container, client) {
     const time = new Date().toLocaleTimeString();
 
     labels.push(time);
-    dataTemp.push(data.temperatura);
     dataHum.push(data.umidade);
 
     if (labels.length > 20) {
@@ -165,6 +147,5 @@ export function render(container, client) {
 
     chart.update();
 
-    document.getElementById("tempValue").textContent = `${data.temperatura.toFixed(1)} °C`;
     document.getElementById("humValue").textContent = `${data.umidade.toFixed(1)} %`;
   })};

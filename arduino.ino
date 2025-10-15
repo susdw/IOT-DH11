@@ -1,8 +1,11 @@
 #include <DHT.h>
 
+#define LEDPIN 3
 #define DHTPIN 2
 #define DHTTYPE DHT11
+
 DHT dht(DHTPIN, DHTTYPE);
+const int OVERHEATING_THRESHOLD = 30;
 
 void setup() {
   Serial.begin(9600);
@@ -26,4 +29,10 @@ void loop() {
   Serial.print(F(",\"umidade\":"));
   Serial.print(humidity, 1);
   Serial.println(F("}"));
+
+  if (temperature > OVERHEATING_THRESHOLD) {
+    digitalWrite(LEDPIN, HIGH);
+  } else {
+    digitalWrite(LEDPIN, LOW);
+  }
 }
