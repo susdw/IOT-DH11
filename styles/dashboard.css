@@ -1,0 +1,209 @@
+/* Dashboard specific styles */
+body.dashboard-page {
+  background: linear-gradient(135deg, #181424, #241b33);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  color: #e0d7ff;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.sidebar {
+  width: 240px;
+  background: #241b33;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar h1 {
+  color: #b388ff;
+  text-align: center;
+  font-size: 1.6rem;
+  text-shadow: 0 0 8px rgba(179, 136, 255, 0.6);
+  display: none;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.nav-button {
+  background: #5e35b1;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-button i {
+  font-size: 1.5rem;
+}
+
+.nav-button:hover,
+.nav-button.active {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #b388ff, #d1aaff);
+  color: #241b33;
+}
+
+.nav-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(179, 136, 255, 0.4);
+}
+
+/* Footer styles */
+.main-footer {
+  background: #241b33;
+  color: #e0d7ff;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+main {
+  margin-left: 240px;
+  padding: 2rem;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed + main {
+  margin-left: 80px;
+  
+}
+
+/* Ensure the header is above the sidebar */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+/* Collapse button styles */
+.collapse-button {
+  background: none;
+  border: none;
+  color: #d1c4e9;
+  cursor: pointer;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 50%; /* Center vertically */
+  right: -1.5rem; /* Place outside the sidebar */
+  transform: translateY(-50%);
+  z-index: 3; /* Ensure it is above the header */
+}
+
+.sidebar.collapsed nav {
+  align-items: center;
+  margin-top: 70px;
+}
+
+.sidebar.collapsed .nav-button {
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar.collapsed .nav-button span {
+  display: none;
+}
+
+.main-header button {
+  background: linear-gradient(135deg, #b388ff, #d1aaff);
+  color: #241b33;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.main-header button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(179, 136, 255, 0.5);
+}
+
+/* Shared styles for temperature and humidity cards */
+.temperature-card, .humidity-card {
+  background: rgba(36, 27, 51, 0.9);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  text-align: center;
+}
+
+.temperature-card .progress-ring__circle,
+.humidity-card .progress-ring__circle {
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.temperature-card .info-item,
+.humidity-card .info-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+  color: #e0d7ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-header nav {
+    width: 100%;
+    justify-content: space-around;
+  }
+}

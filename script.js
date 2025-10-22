@@ -22,3 +22,20 @@ document.querySelectorAll(".sidebar button").forEach((btn) => {
 
 // MQTT log de conexão
 Dashboard.client.on("connect", () => console.log("[MQTT] Conectado ao broker"));
+
+// Disable sidebar toggle functionality
+const sidebar = document.querySelector(".sidebar");
+sidebar.classList.add("collapsed"); // Ensure sidebar is always collapsed
+
+// Remove collapse button functionality
+const collapseButton = document.querySelector(".collapse-button");
+if (collapseButton) {
+  collapseButton.remove(); // Remove the button entirely
+}
+
+// Ensure text inside nav-button is wrapped in a span
+const navButtons = document.querySelectorAll(".nav-button");
+navButtons.forEach((btn) => {
+  const text = btn.textContent.trim();
+  btn.innerHTML = `<i class="${btn.querySelector('i').className}"></i> <span>${text}</span>`;
+});
