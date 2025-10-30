@@ -26,32 +26,3 @@ parser.on('data', (line) => {
     console.error('[ERRO] Dados inválidos:', err.message);
   }
 });
-
-// Redirect to login screen by default
-if (!localStorage.getItem('loggedIn')) {
-    window.location.href = 'login.html';
-}
-
-// Handle login form submission
-const loginForm = document.getElementById('loginForm');
-if (loginForm) {
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        const rememberMe = document.getElementById('rememberMe').checked;
-
-        // Simulate authentication (replace with real authentication logic)
-        if (username === 'admin' && password === 'password') {
-            if (rememberMe) {
-                localStorage.setItem('loggedIn', true);
-            } else {
-                sessionStorage.setItem('loggedIn', true);
-            }
-            window.location.href = 'dashboard.html';
-        } else {
-            alert('Invalid username or password');
-        }
-    });
-}
