@@ -1,7 +1,7 @@
 export function render(container, client) {
   container.innerHTML = `
     <div class="container mt-4" style="margin-top: 5%">
-      <h2 class="title">DHT11 — <span class="highlight">Umidade</span></h2>
+      <h2 class="title">Umidade</h2>
       <div class="connected-container">
         <div class="graph-container">
           <canvas id="chartHumidity"></canvas>
@@ -18,10 +18,26 @@ export function render(container, client) {
             </div>
           </div>
           <div class="humidity-info">
-            <div class="info-item"><i class="bi bi-arrow-down-circle" style="color: #4caf50;"></i><span>Min:</span><span class="info-value min-humidity">-- %</span></div>
-            <div class="info-item"><i class="bi bi-arrow-up-circle" style="color: #f44336;"></i><span>Max:</span><span class="info-value max-humidity">-- %</span></div>
-            <div class="info-item"><i class="bi bi-clock" style="color: #ff9800;"></i><span>Última Atualização:</span><span class="info-value last-updated">--:--:--</span></div>
-            <div class="info-item"><i class="bi bi-graph-up-arrow" style="color: #2196f3;"></i><span>Tendência:</span><span class="info-value humidity-trend">--</span></div>
+            <div class="info-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <i class="bi bi-arrow-down-circle" style="color: #4caf50;"></i>
+              <span style="flex: 1; text-align: left; margin-left:5px;">Min:</span>
+              <span class="info-value min-humidity" style="text-align: right;">-- %</span>
+            </div>
+            <div class="info-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <i class="bi bi-arrow-up-circle" style="color: #f44336;"></i>
+              <span style="flex: 1; text-align: left; margin-left:5px;">Max:</span>
+              <span class="info-value max-humidity" style="text-align: right;">-- %</span>
+            </div>
+            <div class="info-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <i class="bi bi-clock" style="color: #ff9800;"></i>
+              <span style="flex: 1; text-align: left; margin-left:5px;">Horário:</span>
+              <span class="info-value last-updated" style="text-align: right;">--:--:--</span>
+            </div>
+            <div class="info-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <i class="bi bi-graph-up-arrow" style="color: #2196f3;"></i>
+              <span style="flex: 1; text-align: left; margin-left:5px;">Tendência:</span>
+              <span class="info-value humidity-trend" style="text-align: right;">--</span>
+            </div>
           </div>
         </div>
       </div>
@@ -29,8 +45,8 @@ export function render(container, client) {
   `;
 
   const ctx = document.getElementById("chartHumidity").getContext("2d");
-  const labels = [];
-  const dataHumidity = [];
+  const labels = JSON.parse(localStorage.getItem("humidityLabels")) || [];
+  const dataHumidity = JSON.parse(localStorage.getItem("humidityData")) || [];
 
   const chart = new Chart(ctx, {
     type: "line",
@@ -54,7 +70,9 @@ export function render(container, client) {
         legend: {
           labels: {
             color: "#ffffff",
-            font: { size: 14, family: "'Arial', sans-serif" }
+            font: { size: 14, family: "'Arial', sans-serif" },
+            usePointStyle: true,
+            pointStyle: "circle" 
           }
         },
       },
@@ -76,13 +94,13 @@ export function render(container, client) {
   let minHumidity = Infinity, maxHumidity = -Infinity, previousHumidity = null;
 
   // Ensure MQTT topic matches Arduino's published topic
-  client.subscribe("iot/humidity", (err) => {
+  client.subscribe("carlos/dht11", (err) => {
     if (!err) {
-      console.log("Subscribed to iot/humidity");
+      console.log("Subscribed to carlos/dht11");
     }
   });
   client.on("message", (topic, message) => {
-    if (topic === "iot/humidity") {
+    if (topic === "carlos/dht11") {
       try {
         const data = JSON.parse(message.toString());
         const humidity = parseFloat(data.umidade);
@@ -110,6 +128,9 @@ export function render(container, client) {
         const percent = Math.min((humidity / 100) * 100, 100);
         circle.style.strokeDasharray = `${circumference} ${circumference}`;
         circle.style.strokeDashoffset = circumference - (percent / 100) * circumference;
+
+        localStorage.setItem("humidityLabels", JSON.stringify(labels));
+        localStorage.setItem("humidityData", JSON.stringify(dataHumidity));
 
         chart.update();
       } catch (error) {
